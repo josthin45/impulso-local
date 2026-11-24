@@ -103,7 +103,7 @@ export const MOMENTS: Record<
     at: "2026-11-04T08:00:00-05:00",
     title: "Inicio",
     caption:
-      "4 de noviembre de 2026, 08:00. El trabajo está en Backlog y en Por hacer. Desarrollo y Pruebas siguen vacíos.",
+      "4 de noviembre de 2026, 08:00. IL-01 e IL-02 están en Por hacer. Backlog, Desarrollo y Pruebas siguen vacíos.",
   },
   m2: {
     at: "2026-11-12T18:00:00-05:00",

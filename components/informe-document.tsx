@@ -183,23 +183,40 @@ export function InformeDocument() {
         ))}
         <h3 className="font-heading mt-3 text-xl">Texto en línea para Moodle</h3>
         <p className="mt-1">
-          Prototipo y tablero: enlace público de ImpulsoLocal, rutas /tablero e /informe. Repositorio
-          de la entrega con el código y las pruebas. PDF adjunto: ImpulsoLocal-Kanban-Unidad3.pdf.
-          Cada integrante pega, además, el párrafo de su aporte. Si el enlace pide permiso, hay que
-          dejarlo abierto para {COURSE.teacher} antes de enviar. Al confirmar la publicación del
-          prototipo, la visibilidad tiene que permitir que el docente abra el tablero.
+          Repositorio público:{" "}
+          <a href="https://github.com/josthin45/impulso-local">
+            https://github.com/josthin45/impulso-local
+          </a>
+          . El tablero interactivo está en la ruta /tablero y este informe en /informe. Las tres
+          capturas completas se abren sin clonar el proyecto:{" "}
+          <a href="https://github.com/josthin45/impulso-local/raw/main/public/capturas/momento-1.png">
+            momento 1
+          </a>
+          ,{" "}
+          <a href="https://github.com/josthin45/impulso-local/raw/main/public/capturas/momento-2.png">
+            momento 2
+          </a>{" "}
+          y{" "}
+          <a href="https://github.com/josthin45/impulso-local/raw/main/public/capturas/momento-3.png">
+            momento 3
+          </a>
+          . PDF:{" "}
+          <a href="https://github.com/josthin45/impulso-local/raw/main/public/ImpulsoLocal-Kanban-Unidad3.pdf">
+            ImpulsoLocal-Kanban-Unidad3.pdf
+          </a>
+          . Cada integrante pega este párrafo y el suyo de arriba. El docente abre el repositorio y
+          las capturas sin pedir permiso.
         </p>
       </section>
 
       <style>{`
         .break { break-before: page; }
         figure { break-inside: avoid; margin: 0 0 6px; }
+        .informe a { color: #1e4636; overflow-wrap: anywhere; }
         .informe img {
           display: block;
           width: 100%;
-          max-height: 108mm;
-          object-fit: contain;
-          object-position: left top;
+          height: auto;
           background: #f3eee4;
         }
         @page { size: A4; margin: 11mm 12mm; }
