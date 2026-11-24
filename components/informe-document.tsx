@@ -181,38 +181,11 @@ export function InformeDocument() {
             <strong>{member.name}.</strong> {member.aporte}
           </p>
         ))}
-        <h3 className="font-heading mt-3 text-xl">Texto en línea para Moodle</h3>
-        <p className="mt-1">
-          Repositorio público:{" "}
-          <a href="https://github.com/josthin45/impulso-local">
-            https://github.com/josthin45/impulso-local
-          </a>
-          . El tablero interactivo está en la ruta /tablero y este informe en /informe. Las tres
-          capturas completas se abren sin clonar el proyecto:{" "}
-          <a href="https://github.com/josthin45/impulso-local/raw/main/public/capturas/momento-1.png">
-            momento 1
-          </a>
-          ,{" "}
-          <a href="https://github.com/josthin45/impulso-local/raw/main/public/capturas/momento-2.png">
-            momento 2
-          </a>{" "}
-          y{" "}
-          <a href="https://github.com/josthin45/impulso-local/raw/main/public/capturas/momento-3.png">
-            momento 3
-          </a>
-          . PDF:{" "}
-          <a href="https://github.com/josthin45/impulso-local/raw/main/public/ImpulsoLocal-Kanban-Unidad3.pdf">
-            ImpulsoLocal-Kanban-Unidad3.pdf
-          </a>
-          . Cada integrante pega este párrafo y el suyo de arriba. El docente abre el repositorio y
-          las capturas sin pedir permiso.
-        </p>
       </section>
 
       <style>{`
         .break { break-before: page; }
         figure { break-inside: avoid; margin: 0 0 6px; }
-        .informe a { color: #1e4636; overflow-wrap: anywhere; }
         .informe img {
           display: block;
           width: 100%;
