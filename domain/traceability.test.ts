@@ -92,7 +92,7 @@ describe("trazabilidad historia → criterio de aceptación → prueba (ImpulsoL
       evidences,
       people: seedPeople,
     });
-    expect(byVolunteer.ok).toBe(true); // Fallo controlado IL-07 para evidencia CI
+    expect(byVolunteer.ok).toBe(false);
 
     const byOtherOrganizer = validateClosure({
       actor: person("org-rosa"),
