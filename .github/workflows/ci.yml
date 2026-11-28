@@ -1,0 +1,51 @@
+name: CI - ImpulsoLocal
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify-and-build:
+    name: Lint, Typecheck, Tests y Build
+    runs-on: ubuntu-latest
+
+    env:
+      NEXT_PUBLIC_APP_ENV: ${{ secrets.NEXT_PUBLIC_APP_ENV || 'ci' }}
+      APP_VERSION: ${{ secrets.APP_VERSION || '0.1.0-ci' }}
+      HEALTHCHECK_TOKEN: ${{ secrets.HEALTHCHECK_TOKEN || '' }}
+      NEXT_TELEMETRY_DISABLED: "1"
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20 con caché de npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: package-lock.json
+
+      - name: Instalar dependencias reproducibles (npm ci)
+        run: npm ci
+
+      - name: Verificar lint (ESLint)
+        run: npm run lint
+
+      - name: Verificar tipos de TypeScript
+        run: npx tsc --noEmit
+
+      - name: Ejecutar pruebas automatizadas (Vitest)
+        run: npm test
+
+      - name: Construir aplicación de producción (Next.js)
+        run: npm run build
