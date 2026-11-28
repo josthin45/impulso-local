@@ -1,0 +1,19 @@
+flowchart TB
+  subgraph vol [Voluntario]
+    s((Inicio: reto abierto)) --> leer[Leer recomendación]
+    leer --> decide{¿El horario cubre?}
+    decide -->|sí, secuencia| post[Postularme]
+    decide -->|no, excepción| aviso[Leer advertencia de horario]
+    aviso --> confirma{¿Confirma el aviso?}
+    confirma -->|no| finSin((Fin: sin postulación))
+    confirma -->|sí, secuencia| post
+  end
+  subgraph sis [Sistema]
+    post --> crear[Crear postulación pendiente]
+  end
+  subgraph org [Organizador]
+    crear -.->|flujo de mensaje| ver[Revisar postulación y aviso]
+    ver --> cupo{¿Queda cupo?}
+    cupo -->|sí| ok((Fin: confirmada))
+    cupo -->|no, excepción| no((Fin: rechazada por cupo))
+  end

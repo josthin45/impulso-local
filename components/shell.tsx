@@ -14,6 +14,7 @@ const LINKS = [
   { href: "/reglas", label: "Reglas" },
   { href: "/tablero", label: "Tablero" },
   { href: "/informe", label: "Informe" },
+  { href: "/portafolio", label: "Portafolio" },
 ];
 
 export function Shell({ children }: { children: React.ReactNode }) {
@@ -21,15 +22,23 @@ export function Shell({ children }: { children: React.ReactNode }) {
   const captura = useSearchParams().get("captura") === "1";
   const app = useApp();
 
-  if (path === "/informe") {
+  if (path === "/informe" || path === "/portafolio") {
+    const portfolio = path === "/portafolio";
     return (
       <div>
         <div className="no-print border-b border-border bg-paper/90">
           <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 px-4 py-3">
-            <Link href="/tablero" className="text-sm font-medium text-moss">
-              Volver al tablero
+            <Link href={portfolio ? "/" : "/tablero"} className="text-sm font-medium text-moss">
+              {portfolio ? "Volver al prototipo" : "Volver al tablero"}
             </Link>
-            <a href="/ImpulsoLocal-Kanban-Unidad3.pdf" className="text-sm font-medium text-moss">
+            <a
+              href={
+                portfolio
+                  ? "/ImpulsoLocal-Portafolio-Unidad4.pdf"
+                  : "/ImpulsoLocal-Kanban-Unidad3.pdf"
+              }
+              className="text-sm font-medium text-moss"
+            >
               Descargar PDF
             </a>
           </div>

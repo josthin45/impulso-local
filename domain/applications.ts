@@ -15,6 +15,7 @@ export function applyToChallenge(input: {
   volunteer: Person;
   applications: Application[];
   now: string;
+  scheduleAcknowledged?: boolean;
 }): Result<Application> {
   const { id, challenge, volunteer, applications, now } = input;
   if (volunteer.role !== "voluntario") {
@@ -36,12 +37,19 @@ export function applyToChallenge(input: {
     return err("Ya tienes una postulación activa en este reto.");
   }
 
+  const warning = scheduleWarning(volunteer.availability, challenge.schedule);
+  if (warning && input.scheduleAcknowledged !== true) {
+    return err(
+      "Lee la advertencia de horario y confírmala. El aviso no impide postular, pero la postulación no se envía sola.",
+    );
+  }
+
   return ok({
     id,
     challengeId: challenge.id,
     volunteerId: volunteer.id,
     status: "postulada",
-    scheduleWarning: scheduleWarning(volunteer.availability, challenge.schedule),
+    scheduleWarning: warning,
     createdAt: now,
   });
 }

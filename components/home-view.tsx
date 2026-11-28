@@ -1,16 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { ApplyButton } from "@/components/apply-button";
 import { recommend } from "@/domain/recommendations";
+import { scheduleWarning } from "@/domain/schedule";
 import { STATUS_LABEL } from "@/domain/labels";
 import { formatWindow } from "@/domain/time";
 import { useApp } from "@/components/providers";
 
 const STEPS = [
   "Entra como Camila Ortiz. El club de lectura explica habilidades, horario y cupos. Todavía no hay postulación suya.",
-  "Pulsa Postularme. El estado queda en postulada, no en confirmada.",
-  "Cambia a Luis Mora y abre el club de lectura. Su horario no coincide y el sistema lo advierte.",
+  "Pulsa Postularme en el club. El horario cubre, así que no pide confirmación extra. El estado queda en postulada, no en confirmada.",
+  "Cambia a Luis Mora y abre el registro de raciones. Su horario no cubre: Postularme abre un aviso y no envía nada hasta que lo confirme.",
   "Entra como Mariana Vélez, confirma a Camila e intenta confirmar a alguien más: el club tiene un solo cupo.",
   "Vuelve a Camila, inicia el reto como Mariana, entrega la evidencia y pide el cierre. Luis no puede validarlo. Mariana sí.",
   "Entra como Héctor Cedeño y cancela el mapeo de reciclaje. Ana ve alternativas y no queda inscrita en ellas.",
@@ -37,6 +38,14 @@ export function HomeView() {
       application.status === "postulada" &&
       mine.some((challenge) => challenge.id === application.challengeId),
   );
+
+  if (!app.ready) {
+    return (
+      <p role="status" data-testid="loading-demo" className="text-sm text-muted-foreground">
+        Cargando la demostración…
+      </p>
+    );
+  }
 
   return (
     <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
@@ -91,7 +100,10 @@ export function HomeView() {
         ))}
 
         {person.role === "voluntario" && recommendations.length === 0 && (
-          <section className="rounded-3xl border border-dashed border-border bg-card p-6">
+          <section
+            data-testid="empty-recommendations"
+            className="rounded-3xl border border-dashed border-border bg-card p-6"
+          >
             <h2 className="font-heading text-2xl">Ningún reto abierto coincide</h2>
             <p className="mt-2 text-sm text-muted-foreground">
               Hace falta al menos una habilidad en común y un cupo libre. Revisa tu perfil o espera
@@ -123,12 +135,11 @@ export function HomeView() {
                       {challenge.spots} {challenge.spots === 1 ? "cupo" : "cupos"}
                     </p>
                   </div>
-                  <Button
-                    data-testid={`apply-${challenge.id}`}
-                    onClick={() => app.apply(challenge.id)}
-                  >
-                    Postularme
-                  </Button>
+                  <ApplyButton
+                    challengeId={challenge.id}
+                    warning={scheduleWarning(person.availability, challenge.schedule)}
+                    testId={`apply-${challenge.id}`}
+                  />
                 </div>
                 <p className="mt-3 text-sm">{challenge.summary}</p>
                 <ul className="mt-3 space-y-1 text-sm text-muted-foreground">

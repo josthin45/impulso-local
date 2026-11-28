@@ -1,0 +1,7 @@
+flowchart TB
+  subgraph persona [Persona en el navegador]
+    web[Aplicación web Next.js<br/>pantallas y diálogos]
+    store[Almacén local del navegador<br/>localStorage]
+  end
+  web --> domain[Módulo de dominio<br/>reglas en domain/]
+  web --> store

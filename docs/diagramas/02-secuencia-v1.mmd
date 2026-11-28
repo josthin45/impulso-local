@@ -1,0 +1,11 @@
+sequenceDiagram
+  autonumber
+  actor V as Voluntario
+  participant I as Interfaz
+  participant D as Dominio
+  actor O as Organizador
+  V->>I: Postularme
+  I->>D: apply()
+  D-->>I: postulada, con aviso si el horario no cubre
+  I-->>O: postulación pendiente
+  Note over V,D: Versión 1, hasta el 23 de noviembre de 2026. Un clic creaba la postulación aunque hubiera aviso.

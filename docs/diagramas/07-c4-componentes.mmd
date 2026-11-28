@@ -1,0 +1,17 @@
+flowchart TB
+  subgraph web [Contenedor: aplicación web]
+    shell[Shell: identidad ficticia]
+    inicio[Inicio: recomendaciones]
+    ficha[Ficha del reto]
+    dialog[Diálogo de advertencia<br/>versión 2]
+    publicar[Publicar reto]
+    perfil[Perfil]
+    domain[Dominio: recommend, apply, confirm]
+  end
+  inicio --> domain
+  inicio --> dialog
+  dialog --> domain
+  ficha --> dialog
+  ficha --> domain
+  publicar --> domain
+  perfil --> domain

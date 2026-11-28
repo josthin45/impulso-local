@@ -63,11 +63,20 @@ describe("postulación, cupos y horario", () => {
     expect(result.value.scheduleWarning).toBeNull();
   });
 
-  it("un horario incompatible advierte y no bloquea la postulación", () => {
+  it("un horario incompatible exige confirmar el aviso y, al confirmar, no bloquea", () => {
     const luis = person("vol-luis");
     const lectura = challenge("rt-lectura");
     const warning = scheduleWarning(luis.availability, lectura.schedule);
     expect(warning).toMatch(/no cubre/i);
+
+    const blocked = applyToChallenge({
+      id: "app-luis-lectura",
+      challenge: lectura,
+      volunteer: luis,
+      applications: [],
+      now: NOW,
+    });
+    expect(blocked.ok).toBe(false);
 
     const result = applyToChallenge({
       id: "app-luis-lectura",
@@ -75,6 +84,7 @@ describe("postulación, cupos y horario", () => {
       volunteer: luis,
       applications: [],
       now: NOW,
+      scheduleAcknowledged: true,
     });
     expect(result.ok).toBe(true);
     if (!result.ok) return;

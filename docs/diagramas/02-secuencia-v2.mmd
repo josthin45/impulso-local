@@ -1,0 +1,24 @@
+sequenceDiagram
+  autonumber
+  actor V as Voluntario
+  participant I as Interfaz
+  participant D as Dominio
+  actor O as Organizador
+  V->>I: ver coincidencia
+  I->>D: recommend()
+  D-->>I: explicación, inscrita = false
+  V->>I: Postularme
+  alt horario cubre
+    I->>D: apply()
+    D-->>I: postulada, sin aviso
+  else horario no cubre
+    I-->>V: diálogo de advertencia
+    alt cancela
+      I-->>V: no hay postulación
+    else confirma el aviso
+      I->>D: apply(confirmoAviso = true)
+      D-->>I: postulada, con aviso
+    end
+  end
+  I--)O: mensaje: postulación pendiente
+  Note over V,D: Versión 2, 27 de noviembre de 2026. El aviso no bloquea, pero hay que confirmarlo.

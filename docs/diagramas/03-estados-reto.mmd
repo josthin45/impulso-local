@@ -1,0 +1,14 @@
+stateDiagram-v2
+  [*] --> abierto : publicar
+  abierto --> en_curso : iniciar
+  en_curso --> en_cierre : pedir cierre
+  en_cierre --> cerrado : validar, solo el organizador
+  abierto --> cancelado : cancelar
+  en_curso --> cancelado : cancelar
+  en_cierre --> cancelado : cancelar
+  cerrado --> [*]
+  cancelado --> [*]
+  note right of abierto
+    Crear una postulación no cambia este estado.
+    Guardia de la postulación: si hay aviso, confirmoAviso = true.
+  end note

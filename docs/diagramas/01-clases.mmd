@@ -1,0 +1,40 @@
+classDiagram
+  direction LR
+  class Persona {
+    +id
+    +nombre
+    +rol voluntario|organizador
+    +habilidades
+    +intereses
+    +ficticia = true
+  }
+  class Franja {
+    +dia
+    +inicio
+    +fin
+  }
+  class Reto {
+    +titulo
+    +barrio
+    +horario
+    +cupos
+    +criterioCierre
+    +estado
+  }
+  class Recomendacion {
+    +puntaje
+    +razones
+    +ajusteHorario
+    +inscrita = false
+  }
+  class Postulacion {
+    +estado
+    +avisoHorario
+    +confirmoAviso
+  }
+  Persona "1" --> "*" Franja : disponibilidad
+  Persona "1" --> "*" Reto : publica si es organizador
+  Persona "1" --> "*" Recomendacion : consulta
+  Reto "1" --> "*" Recomendacion : explica
+  Persona "1" --> "*" Postulacion : se postula
+  Reto "1" --> "*" Postulacion : recibe

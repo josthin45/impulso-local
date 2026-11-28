@@ -22,19 +22,19 @@ Las personas del barrio (Camila, Luis, Ana, Diego, Mariana, Héctor y Rosa) son 
 - Entregar evidencia, pedir el cierre y validarlo. Solo el organizador del reto valida.
 - Cancelar un reto y ofrecer alternativas sin inscripción automática.
 - Revisar el panel de participación.
-- Abrir el tablero Kanban de la Unidad 3 y el informe para Moodle.
+- Abrir el tablero Kanban de la Unidad 3, el informe y el portafolio de la Unidad 4.
 - Verificar el estado operativo y la versión desplegada en `/api/health`.
 
 ## Recorrido
 
 1. Entra como Camila Ortiz y lee la recomendación del club de lectura.
 2. Postúlate. La postulación queda pendiente.
-3. Cambia a Luis Mora, abre el club y mira el aviso de horario.
+3. Cambia a Luis Mora y abre el registro de raciones. Su horario no cubre: el aviso pide confirmación y cancelar no crea la postulación.
 4. Entra como Mariana Vélez, confirma a Camila y comprueba el cupo.
 5. Inicia la actividad, entrega la evidencia como Camila y valida el cierre como Mariana. Como Luis, la validación se rechaza.
 6. Entra como Héctor Cedeño y cancela el mapeo de reciclaje. Ana ve alternativas y no queda inscrita.
 
-El tablero está en `/tablero`. El informe está en `/informe`. El PDF de la entrega, cuando se genera, queda en `public/ImpulsoLocal-Kanban-Unidad3.pdf`.
+El tablero está en `/tablero`. El informe de la unidad 3 está en `/informe`. El portafolio de la unidad 4 está en `/portafolio`. Los PDF quedan en `public/ImpulsoLocal-Kanban-Unidad3.pdf` y `public/ImpulsoLocal-Portafolio-Unidad4.pdf`. Los diagramas editables están en `docs/diagramas/`.
 
 Las fechas de las tarjetas del tablero son una simulación identificada del 3 al 21 de noviembre de 2026 (hora de Guayaquil). Sirven para el tiempo de entrega, el tiempo de ciclo y la cantidad terminada. El prototipo y las pruebas son del 23 de noviembre de 2026.
 

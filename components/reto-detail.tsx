@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useParams } from "next/navigation";
+import { ApplyButton } from "@/components/apply-button";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { confirmedCount, remainingSpots } from "@/domain/capacity";
@@ -87,12 +88,11 @@ export function RetoDetail() {
                 {remaining <= 0 ? (
                   <p className="text-sm">No quedan cupos libres. No se abre otra postulación.</p>
                 ) : (
-                  <Button
-                    data-testid={`apply-${challenge.id}`}
-                    onClick={() => app.apply(challenge.id)}
-                  >
-                    Postularme
-                  </Button>
+                  <ApplyButton
+                    challengeId={challenge.id}
+                    warning={warning}
+                    testId={`apply-${challenge.id}`}
+                  />
                 )}
                 <p className="text-sm text-muted-foreground">
                   Postularte no te confirma. El organizador decide.

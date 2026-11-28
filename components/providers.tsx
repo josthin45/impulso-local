@@ -62,8 +62,8 @@ type AppApi = AppState & {
     interests: string[];
     availability: TimeWindow[];
   }) => void;
-  publish: (input: PublishInput) => boolean;
-  apply: (challengeId: string) => void;
+  publish: (input: PublishInput) => true | string;
+  apply: (challengeId: string, scheduleAcknowledged?: boolean) => void;
   confirm: (applicationId: string) => void;
   reject: (applicationId: string) => void;
   start: (challengeId: string) => void;
@@ -142,7 +142,7 @@ export function Providers({ children }: { children: ReactNode }) {
       const result = publishChallenge({ ...input, id: nid("rt"), actor });
       if (!result.ok) {
         setState((current) => ({ ...current, message: { tone: "err", text: result.error } }));
-        return false;
+        return result.error;
       }
       const challenge = result.value;
       setState((current) => ({
@@ -155,7 +155,7 @@ export function Providers({ children }: { children: ReactNode }) {
       }));
       return true;
     },
-    apply: (challengeId) => {
+    apply: (challengeId, scheduleAcknowledged = false) => {
       setState((current) => {
         const actor = current.people.find((person) => person.id === current.activePersonId);
         const reto = current.challenges.find((item) => item.id === challengeId);
@@ -166,6 +166,7 @@ export function Providers({ children }: { children: ReactNode }) {
           volunteer: actor,
           applications: current.applications,
           now: new Date().toISOString(),
+          scheduleAcknowledged,
         });
         if (!result.ok) return { ...current, message: { tone: "err", text: result.error } };
         const warning = result.value.scheduleWarning;

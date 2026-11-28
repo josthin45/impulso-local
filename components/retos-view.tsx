@@ -40,24 +40,34 @@ export function RetosView() {
   const [end, setEnd] = useState("12:00");
   const [spots, setSpots] = useState("2");
   const [closingCriteria, setClosingCriteria] = useState("");
+  const [pending, setPending] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
 
   function publish() {
-    const created = app.publish({
-      title,
-      summary,
-      neighborhood,
-      skills: skills.split(","),
-      interests: interests.split(","),
-      schedule: { day, start, end },
-      spots: Number(spots),
-      closingCriteria,
-    });
-    if (created) {
-      setOpen(false);
-      setTitle("");
-      setSummary("");
-      setClosingCriteria("");
-    }
+    if (pending) return;
+    setPending(true);
+    setFormError(null);
+    window.setTimeout(() => {
+      const created = app.publish({
+        title,
+        summary,
+        neighborhood,
+        skills: skills.split(","),
+        interests: interests.split(","),
+        schedule: { day, start, end },
+        spots: Number(spots),
+        closingCriteria,
+      });
+      setPending(false);
+      if (created === true) {
+        setOpen(false);
+        setTitle("");
+        setSummary("");
+        setClosingCriteria("");
+        return;
+      }
+      setFormError(created);
+    }, 500);
   }
 
   return (
@@ -170,8 +180,19 @@ export function RetosView() {
               />
             </Field>
           </div>
+          {formError && (
+            <p
+              role="alert"
+              data-testid="publish-error"
+              className="rounded-2xl bg-[#f8e4d8] px-3 py-2 text-sm text-[#6d2410]"
+            >
+              {formError}
+            </p>
+          )}
           <DialogFooter>
-            <Button onClick={publish}>Publicar</Button>
+            <Button data-testid="publish-submit" disabled={pending} onClick={publish}>
+              {pending ? "Publicando…" : "Publicar"}
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

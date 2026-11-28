@@ -1,0 +1,14 @@
+flowchart TB
+  subgraph vol [Voluntario]
+    s((Inicio)) --> leer[Leer recomendación]
+    leer --> post[Postularme]
+  end
+  subgraph sis [Sistema]
+    post -->|flujo de secuencia| crear[Crear postulación pendiente]
+  end
+  subgraph org [Organizador]
+    crear -.->|flujo de mensaje| ver[Ver postulación]
+    ver --> cupo{¿Queda cupo?}
+    cupo -->|sí| ok((Confirmada))
+    cupo -->|no, excepción| no((Rechazada))
+  end
